@@ -14,7 +14,7 @@ GRASS = (51, 105, 30)
 WIDTH = 1024
 HEIGHT = 768
 FPS = 60
-TITLE = "Pygame Testing"
+TITLE = "AP CS Create Task"
 BGCOLOR = GRASS
 
 TILESIZE = 64
