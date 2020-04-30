@@ -32,7 +32,6 @@ class Game:
         img_folder = path.join(game_folder, 'source')
         if self.player_img != pg.image.load(path.join(img_folder, img)).convert_alpha():
             self.player_img = pg.image.load(path.join(img_folder, img)).convert_alpha()
-            #print("Player is now {}".format(img))
 
     def new(self):
         # initialize all variables and do all the setup for a new game
