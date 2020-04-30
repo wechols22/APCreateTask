@@ -28,6 +28,10 @@ class Player(pg.sprite.Sprite):
         self.customDisplayText = ""
         self.room = 2
 
+        # roomMovementDir is the direction the player just traveled and it determines which tp in the current room the player should load in next to
+        self.roomMovementDir = "east"
+
+
     # handles player input and manages inventory display
     def player_input(self):
         self.vel = vec(0, 0)
@@ -67,10 +71,6 @@ class Player(pg.sprite.Sprite):
             if self.customDisplayText != "":
                 self.customDisplayText = ""
 
-    # Note: this has not been tested
-
-    # IDEA - when the player tps to a new room there location should be relative to the location to tp back, for istance if going north, then location should be south pad -1y
-
     def setPlayerLocation(self, x, y):
         self.rect.x = x
         self.rect.y = y
@@ -100,25 +100,16 @@ class Player(pg.sprite.Sprite):
                 print("I just hit a teleporter")
 
                 game_folder = path.dirname(__file__)
-                img_folder = path.join(game_folder, 'source')
                 self.game.map = Map(path.join(game_folder, 'maps/map{}.txt'.format(teleHits[0].teleport)))
 
-
-
-                # for some reason it does not want to update and display properly on the Main class
-                # Current explanation - Two player objects have been created and are apparently "competeting" for methods which is causing consistency errors
-                #self.customDisplayText = "test"
-
                 print("teleporting to maps/map{}.txt".format(teleHits[0].teleport))
-
-                # retreive current room's location for the new room
-
-
 
                 # update player room data
                 self.room = teleHits[0].teleport
                 self.game.changePlayerRoom(teleHits[0].teleport)
 
+                # update player location in room
+                self.roomMovementDir = teleHits[0].dir
 
                 # load changes
                 self.game.updateMapData(False)
@@ -147,25 +138,19 @@ class Player(pg.sprite.Sprite):
 
 
 class Wall(pg.sprite.Sprite):
-    def __init__(self, game, x, y, img, collide, teleport):
+    def __init__(self, game, x, y, img, collide, teleport, directory, isNPC):
         self.groups = game.all_sprites
         self.teleport = teleport
-
-
-        #if collide:
-        #    if not teleport == False:
-        #        self.groups = game.all_sprites, game.walls, game.teleports
-        #    else:
-        #        self.groups = game.all_sprites, game.walls
-        #else:
-        #    if not teleport == False:
-        #        self.groups = game.all_sprites, game.teleports
+        self.dir = directory
 
         if not self.teleport:
             if collide:
                 self.groups = game.all_sprites, game.walls
         else:
             self.groups = game.all_sprites, game.teleports
+
+        if isNPC:
+            self.groups = self.groups = game.all_sprites, game.walls, game.npcs
 
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -181,4 +166,3 @@ class Wall(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
-
