@@ -1,10 +1,9 @@
 # Tiles are the different rooms and areas
 class Tile:
     # Initializer
-    def __init__(self, name, id, desc, north, east, south, west, requirement):
+    def __init__(self, name, id, north, east, south, west, requirement):
         self.name = name
         self.id = id
-        self.desc = desc
         self.north = north
         self.east = east
         self.south = south
@@ -24,40 +23,28 @@ bear_repellent = Item("bear repellent", "A tool that prevents bears from eating 
 meat = Item("old meat", "It's rotten and smelly, perfect for a Yeti", 50)
 
 # Init Rooms
-R1 = Tile("The beginning of the trail", 1, "Here is where you started your treacherous journey: The Hunt for the Yeti",
-          0, 2, 0, 0, 0)
-R2 = Tile("You are excited to begin your journey and track down the elusive Yeti.", 2,
-          "You see a small trail to the north and what looks like a gap in the forest to your east", 3, 7, 0, 1, 0)
-R3 = Tile("As you continue down the trail you see a giant footprint to the east, what could that belong to?, you wonder", 3,
-    "The small trail continues to the north and the south", 5, 0, 2, 0, 0)
-R4 = Tile("You at the west end of a gravel road", 4,
-          "The gravel road continues the east, to the north is a old shop that looks open", 14, 5, 0, 0, 0)
-R5 = Tile("You are on a gravel road", 5,
-          "The gravel road goes to the west and the east, to the north is a yeti statue that you can walk around, and the south will take you back to the small trail",
-          15, 6, 3, 4, 0)
-R6 = Tile("You are in front of log cabin, a light in on inside of the cabin", 6, "The gravel road continues the west",
-          16, 0, 0, 5, 0)
-R7 = Tile("You enter a forest through a narrow gap in the trees", 7,
-          "The little light makes it this dark in the woods. The forest path continues to the east, or you can head back to the trail by going west",
-          0, 8, 0, 2, "flashlight")
-R8 = Tile("You are in the middle of a forrest", 8,
-          "There is a little creek right next to you. A hill is to your east and there is a small passageway to the north",
-          9, 0, 0, 7, 0)
-R9 = Tile("You are in the middle of a forrest", 9,
-          "You are on the west end of an east-west passageway. There is an opening to the south.", 0, 10, 8, 0, 0)
-R10 = Tile("You are in the middle of a forrest", 10, "You are in the middle of an east-west passageway.", 0, 11, 0, 9,
-           0)
-R11 = Tile("You are in the middle of a forrest", 11,
-           "You are on the east of an east-west passageway. There is an opening to the south.", 0, 0, 12, 10, 0)
-R12 = Tile("You are in the middle of a forrest", 12,
-           "You are standing on top of a hill in a small opening and see a ray of sunlight from the east. You can go to a small passageway to the north or roll down the hill to the west.",
-           11, 13, 0, 8, 0)
-R13 = Tile("You are in a hidden creek. A sign warns of wildlife that may visit", 13,
-           "You can go back to the hill to the west.", 0, 0, 0, 12, 0)
+R1 = Tile("Gravel Path", 1, 0, 2, 0, 0, 0)
+R2 = Tile("Gravel Path", 2, 3, 7, 0, 1, 0)
+R3 = Tile("Gravel Path", 3, 5, 0, 2, 0, 0)
+R4 = Tile("Gravel Path", 4, 14, 5, 0, 0, 0)
+R5 = Tile("Gravel Path", 5, 15, 6, 3, 4, 0)
+R6 = Tile("Gravel Path", 6, 16, 0, 0, 5, 0)
+R7 = Tile("Forest", 7, 0, 8, 0, 2, "flashlight")
+R8 = Tile("Forest", 8, 9, 0, 0, 7, 0)
+R9 = Tile("Forest", 9, 0, 10, 8, 0, 0)
+R10 = Tile("Forest", 10, 0, 11, 0, 9, 0)
+R11 = Tile("Forest", 11, 0, 0, 12, 10, 0)
+R12 = Tile("Forest", 12, 11, 13, 0, 8, 0)
+R13 = Tile("Forest", 13, 0, 0, 0, 12, 0)
 # Idea - make location names bold
-R14 = Tile("An Old Souvenir Shop", 14, "There is a shop teller. Perhaps you should ask 'what's for sale?'", 0, 0, 4, 0,
-           0)
-R15 = Tile("You are at the base of a large statue of a Yeti", 15,
-           "You can walk around the statue to the north or to the south.", 17, 0, 5, 0, 0)
-R16 = Tile("There is an older man. Perhaps you should say 'hello'?", 16, "You can leave the house to the south.", 0, 0,
-           6, 0, 0)
+R14 = Tile("An Old Souvenir Shop", 14, 0, 0, 4, 0, 0)
+R15 = Tile("Yeti Statue", 15, 17, 0, 5, 0, 0)
+R16 = Tile("Inside the House", 16, 0, 0, 6, 0, 0)
+R17 = Tile("Beginning of the Hiking Trail", 17, 18, 0, 15, 0, "old meat")
+R18 = Tile("Hiking Trail", 18, 19, 0, 17, 0, "flashlight")
+R19 = Tile("Hiking Trail", 19, 0, 20, 18, 0, 0)
+R20 = Tile("Hiking Trail", 20, 21, 0, 0, 19, "bear repellent")
+R21 = Tile("Hiking Trail", 21, 0, 0, 20, 22, 0)
+R22 = Tile("Hiking Trail", 22, 23, 21, 0, 0, 0) # bear here
+R23 = Tile("The Yeti's Den", 23, 0, 0, 0, 0, 0)
+
