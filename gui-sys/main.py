@@ -39,52 +39,69 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.teleports = pg.sprite.Group()
+        self.npcs = pg.sprite.Group()
 
-        self.player = Player(self, 15, 7)
-        # Problem - running new before adjusting room values will reset room values, running after will reset player object as a whole
-        # Solution - player object must be defined outside of the new function or an overall update function must be created that does not reset player, but does reset sprites
+        self.player = Player(self, 8, 8)
 
         self.updateMapData(True)
 
     def updateMapData(self, isNew):
         if not isNew:
-            pass
-            #self.all_sprites = pg.sprite.Group()
+            self.all_sprites = pg.sprite.Group()
+            self.all_sprites.add(self.player)
+
+            self.npcs = pg.sprite.Group()
+
             self.walls = pg.sprite.Group()
             self.teleports = pg.sprite.Group()
 
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
-                    Wall(self, col, row, "bush.png", True, False)
+                    Wall(self, col, row, "bush.png", True, False, None, False)
                 if tile == '2':
-                    Wall(self, col, row, "gravel_path.png", False, False)
-
+                    Wall(self, col, row, "gravel_path.png", False, False, None, False)
+                if tile == '3':
+                    Wall(self, col, row, "water.png", True, False, None, False)
 
                 # available ids
 
-                #if tile == 'P':
-                #    self.player = Player(self, col, row)
-                if tile.isalpha():
-                    Wall(self, col, row, "house/{}.png".format(tile), True, False)
+                # Shop Seller
+                if tile == 'y':
+                    Wall(self, col, row, "shop_npc.png", True, False, None, True)
+                # Man
+                elif tile == 'z':
+                    Wall(self, col, row, "man_npc.png", True, False, None, True)
+                elif tile.isalpha():
+                    Wall(self, col, row, "house/{}.png".format(tile), True, False, None, False)
 
                 # teleportation tiles
 
                 if tile == '7':
-                    Wall(self, col, row, "north.png", False, eval("R" + str(self.player.room)).north) # North
+                    Wall(self, col, row, "north.png", False, eval("R" + str(self.player.room)).north, "north", False) # North
+                    if self.player.roomMovementDir == "south":
+                        self.player.pos.x = col * 64
+                        self.player.pos.y = (row + 2) * 64
                 if tile == '8':
-                    Wall(self, col, row, "south.png", False, eval("R" + str(self.player.room)).south) # South
-                    #print("{}".format(eval("R" + str(self.player.room)).south))
+                    Wall(self, col, row, "south.png", False, eval("R" + str(self.player.room)).south, "south", False) # South
+                    if self.player.roomMovementDir == "north":
+                        self.player.pos.x = col * 64
+                        self.player.pos.y = (row - 1) * 64
                 if tile == '9':
-                    Wall(self, col, row, "east.png", False, eval("R" + str(self.player.room)).east) # East
+                    Wall(self, col, row, "east.png", False, eval("R" + str(self.player.room)).east, "east", False) # East
+                    if self.player.roomMovementDir == "west":
+                        self.player.pos.x = (col - 1) * 64
+                        self.player.pos.y = row * 64
                 if tile == '0':
-                    Wall(self, col, row, "west.png", False, eval("R" + str(self.player.room)).west) # West
+                    Wall(self, col, row, "west.png", False, eval("R" + str(self.player.room)).west, "west", False) # West
+                    if self.player.roomMovementDir == "east":
+                        self.player.pos.x = (col + 1) * 32
+                        self.player.pos.y = row * 64
+
 
                 # empty tile
-
                 if tile == '.':
-                    Wall(self, col, row, "grass.png", False, False)
-
+                    Wall(self, col, row, "grass.png", False, False, None, False)
 
         # camera/player tracking system
         self.camera = Camera(self.map.width, self.map.height)
@@ -111,24 +128,25 @@ class Game:
         self.camera.update(self.player)
 
         # update animation frame, cycle through 8 animation states
-
-        # as the player switches between maps, this update loops slows down
-
         self.player.animationState = int(self.player.animationFrame/7)
         if self.player.animationState > 6:
             self.player.animationFrame = 0
-
-        print(self.player.animationState)
 
     def draw(self):
         self.screen.fill(BGCOLOR)
 
         # dynamic camera/based drawing of sprites including player
         for sprite in self.all_sprites:
-            if sprite.image == self.player.image:
+            # player
+            if sprite.image == self.player.image or sprite in self.npcs:
                 pass
             else:
                 sprite.image = pg.transform.scale(sprite.image, (64, 64))
+                self.screen.blit(sprite.image, self.camera.apply(sprite))
+
+            # NPCs
+            if sprite in self.npcs:
+                sprite.image = pg.transform.scale(sprite.image, (32, 46))
                 self.screen.blit(sprite.image, self.camera.apply(sprite))
 
         # scale up the player image
