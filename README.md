@@ -2,6 +2,10 @@
 
 This project is for the AP CSP Create Task. The project is simply a collection of python files to gauge progress. I would continue to use repl.it as a repository, but I have migrated my program to the PyCharm IDE for easier development; however, this means that I would have to tediously copy over files and directories to maintain my code with repl.it. Also, the addition of GUI elements were incompatible with a browser-based environment. 
 
+## May 4th In Class Create Task Progress
+
+During the May 4th class period, I remapped inputs and fixed NPC-related bugs in my prorgam.
+
 ## Apirl 30th-May 3rd Out of Class Create Task Progress
 
 Outside of class from April 30th to May 3rd, I created the final object in the game, the NPC object. Along with the object I created sprites and a basic interaction GUI. My goal for this development is to allow the user to interact with the NPC to progress in the game. The remaining game development tasks are: finish gui-game areas, finalize NPC dialogue, and create an end-game screen.
