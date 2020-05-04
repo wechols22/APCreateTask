@@ -25,7 +25,9 @@ class Player(pg.sprite.Sprite):
         self.pos = vec(x, y) * TILESIZE
         self.openInv = False # determines whether or not the players inventory should be displayed
         self.canOpenInv = True
+
         self.customDisplayText = ""
+
         self.room = 2
 
         # roomMovementDir is the direction the player just traveled and it determines which tp in the current room the player should load in next to
@@ -37,7 +39,7 @@ class Player(pg.sprite.Sprite):
         self.vel = vec(0, 0)
         keys = pg.key.get_pressed()
 
-        if not self.openInv:
+        if not self.openInv and self.customDisplayText == "":
             if keys[pg.K_LEFT] or keys[pg.K_a]:
                 self.vel.x = -PLAYER_SPEED
                 self.changePlayerImg('player/left/left.png')
@@ -67,9 +69,11 @@ class Player(pg.sprite.Sprite):
         else:
             self.canOpenInv = True
 
+
         if keys[pg.K_e]:
-            if self.customDisplayText != "":
+            if not self.customDisplayText == "":
                 self.customDisplayText = ""
+                self.pos.y += 3
 
     def setPlayerLocation(self, x, y):
         self.rect.x = x
@@ -115,6 +119,13 @@ class Player(pg.sprite.Sprite):
                 self.game.updateMapData(False)
 
 
+            # check for interaction with an NPC
+
+            npcHit = pg.sprite.spritecollide(self, self.game.npcs, False)
+            keys = pg.key.get_pressed()
+            if npcHit and keys[pg.K_e] and self.customDisplayText == "":
+                self.customDisplayText = "npc"
+
         if dir == 'y':
             hits = pg.sprite.spritecollide(self, self.game.walls, False)
             if hits:
@@ -124,6 +135,7 @@ class Player(pg.sprite.Sprite):
                     self.pos.y = hits[0].rect.bottom
                 self.vel.y = 0
                 self.rect.y = self.pos.y
+
 
 
     def update(self): # handles player input and movement
@@ -149,8 +161,9 @@ class Wall(pg.sprite.Sprite):
         else:
             self.groups = game.all_sprites, game.teleports
 
-        if isNPC:
-            self.groups = self.groups = game.all_sprites, game.walls, game.npcs
+        if not isNPC == False:
+            self.groups = self.groups = game.all_sprites, game.npcs
+            # Note - NPCS cannot have collision (game.walls) or else the plauer interaction will not be executed
 
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -166,3 +179,4 @@ class Wall(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
