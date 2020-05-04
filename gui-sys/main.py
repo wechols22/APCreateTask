@@ -32,6 +32,7 @@ class Game:
         img_folder = path.join(game_folder, 'source')
         if self.player_img != pg.image.load(path.join(img_folder, img)).convert_alpha():
             self.player_img = pg.image.load(path.join(img_folder, img)).convert_alpha()
+            #print("Player is now {}".format(img))
 
     def new(self):
         # initialize all variables and do all the setup for a new game
@@ -67,10 +68,10 @@ class Game:
 
                 # Shop Seller
                 if tile == 'y':
-                    Wall(self, col, row, "shop_npc.png", True, False, None, True)
+                    Wall(self, col, row, "shop_npc.png", True, False, None, "shop")
                 # Man
                 elif tile == 'z':
-                    Wall(self, col, row, "man_npc.png", True, False, None, True)
+                    Wall(self, col, row, "man_npc.png", True, False, None, "man")
                 elif tile.isalpha():
                     Wall(self, col, row, "house/{}.png".format(tile), True, False, None, False)
 
@@ -156,20 +157,27 @@ class Game:
         else:
             self.screen.blit(self.player.image, self.camera.apply(self.player), (1 + (self.player.animationState * 46), 12, 44, 54))
 
-        # draw the inventory if open
-        if self.player.openInv:
-            pg.draw.rect(self.screen, BLACK, (10, 490, WIDTH - 20, 270))
-            pg.draw.rect(self.screen, BROWN, (20, 500, WIDTH - 40, 250))
-
-            largeText = pg.font.Font('freesansbold.ttf', 40)
-            TextSurf, TextRect = self.text_objects('Inventory:', largeText)
-            TextRect.center = ((WIDTH / 2), (HEIGHT / 2) + 140)
-            self.screen.blit(TextSurf, TextRect)
+        self.displayGui()
 
         self.displayCustomText()
 
         # update the entire screen
         pg.display.flip()
+
+    def displayGui(self):
+        # draw the inventory if open
+        if self.player.openInv or not self.player.customDisplayText == "":
+            if self.player.openInv:
+                text = 'Inventory'
+            else:
+                text = self.player.customDisplayText
+            pg.draw.rect(self.screen, BLACK, (10, 490, WIDTH - 20, 270))
+            pg.draw.rect(self.screen, BROWN, (20, 500, WIDTH - 40, 250))
+
+            largeText = pg.font.Font('freesansbold.ttf', 40)
+            TextSurf, TextRect = self.text_objects(text, largeText)
+            TextRect.center = ((WIDTH / 2), (HEIGHT / 2) + 140)
+            self.screen.blit(TextSurf, TextRect)
 
     def displayCustomText(self):
         customText = str(self.player.customDisplayText)
