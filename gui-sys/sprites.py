@@ -70,7 +70,7 @@ class Player(pg.sprite.Sprite):
             self.canOpenInv = True
 
 
-        if keys[pg.K_e]:
+        if keys[pg.K_SPACE]:
             if not self.customDisplayText == "":
                 self.customDisplayText = ""
                 self.pos.y += 3
@@ -101,8 +101,6 @@ class Player(pg.sprite.Sprite):
 
             teleHits = pg.sprite.spritecollide(self, self.game.teleports, False)
             if teleHits:
-                print("I just hit a teleporter")
-
                 game_folder = path.dirname(__file__)
                 self.game.map = Map(path.join(game_folder, 'maps/map{}.txt'.format(teleHits[0].teleport)))
 
@@ -123,8 +121,8 @@ class Player(pg.sprite.Sprite):
 
             npcHit = pg.sprite.spritecollide(self, self.game.npcs, False)
             keys = pg.key.get_pressed()
-            if npcHit and keys[pg.K_e] and self.customDisplayText == "":
-                self.customDisplayText = "npc"
+            if npcHit and keys[pg.K_SPACE] and self.customDisplayText == "":
+                self.customDisplayText = "Shop NPC:"
 
         if dir == 'y':
             hits = pg.sprite.spritecollide(self, self.game.walls, False)
