@@ -1,1 +1,0 @@
-This directory stores the gui system that users the Player and Tile-based objects in the above directory
