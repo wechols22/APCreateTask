@@ -6,6 +6,11 @@ from sprites import *
 from map_handler import *
 from rooms import *
 
+# Notice -
+# The libraries used for this program are included in the Python Standard Library with the exception of pygame.
+# More information can be found about pygame at the pygame official website, https://www.pygame.org/, and I take no credit
+# or responsibility for the creation of the pygame library.
+
 class Game:
     def __init__(self):
         pg.init()
