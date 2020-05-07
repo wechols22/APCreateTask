@@ -4,7 +4,7 @@ This project is for the AP CSP Create Task. The project is simply a collection o
 
 ## May 7th In Class Create Task Progress
 
-During the May 7th class period, I removed depracated files and functions from my program code and reduced the overall vision for the game. I also began planning to answer the prompts.
+During the May 7th class period, I removed depracated files and functions from my program code and reduced the overall vision for the game. I also began planning to answer the prompts and gave credit to the pygame library.
 
   Note: the customDisplayText function may be duplicated and needs to be consolidated
 
