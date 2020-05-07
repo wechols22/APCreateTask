@@ -181,18 +181,6 @@ class Game:
             TextRect.center = ((WIDTH / 2), (HEIGHT / 2) + 140)
             self.screen.blit(TextSurf, TextRect)
 
-    def displayCustomText(self):
-        customText = str(self.player.customDisplayText)
-        if customText != "":
-            pg.draw.rect(self.screen, BLACK, (10, 490, WIDTH - 20, 270))
-            pg.draw.rect(self.screen, BROWN, (20, 500, WIDTH - 40, 250))
-            pg.draw.rect(self.screen, BROWN, (20, 500, WIDTH - 40, 250))
-
-            largeText = pg.font.Font('freesansbold.ttf', 40)
-            TextSurf, TextRect = self.text_objects(customText, largeText)
-            TextRect.center = ((WIDTH / 2), (HEIGHT / 2) + 140)
-            self.screen.blit(TextSurf, TextRect)
-
     # handles fonts and texts for pg
     def text_objects(self, text, font):
         textSurface = font.render(text, True, BLACK)
