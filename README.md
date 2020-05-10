@@ -2,6 +2,10 @@
 
 This project is for the AP CSP Create Task. The project is simply a collection of python files to gauge progress. I would continue to use repl.it as a repository, but I have migrated my program to the PyCharm IDE for easier development; however, this means that I would have to tediously copy over files and directories to maintain my code with repl.it. Also, the addition of GUI elements were incompatible with a browser-based environment. 
 
+## May 8th-10th Out of Class Create Task Progress
+
+Oytside of class from May 8th to May 10th, I finished the development of the Create Task so that I can spend the remainder of the time working on the prompts. The program was cut back with multiple features, but still functions as a basic prototype and example of simple RPG systems.
+
 ## May 7th In Class Create Task Progress
 
 During the May 7th class period, I removed depracated files and functions from my program code and reduced the overall vision for the game. I also began planning to answer the prompts and gave credit to the pygame library.
