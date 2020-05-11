@@ -122,7 +122,7 @@ class Player(pg.sprite.Sprite):
             npcHit = pg.sprite.spritecollide(self, self.game.npcs, False)
             keys = pg.key.get_pressed()
             if npcHit and keys[pg.K_SPACE] and self.customDisplayText == "":
-                self.customDisplayText = "Shop NPC:"
+                self.customDisplayText = "Shop NPC"
 
         if dir == 'y':
             hits = pg.sprite.spritecollide(self, self.game.walls, False)
@@ -170,8 +170,6 @@ class Wall(pg.sprite.Sprite):
         img_folder = path.join(game_folder, 'source')
         self.image = pg.image.load(path.join(img_folder, img)).convert_alpha()
 
-        #self.image = pg.Surface((TILESIZE, TILESIZE))
-        #self.image.fill(color)
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
