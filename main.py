@@ -6,11 +6,6 @@ from sprites import *
 from map_handler import *
 from rooms import *
 
-# Notice -
-# The libraries used for this program are included in the Python Standard Library with the exception of pygame.
-# More information can be found about pygame at the pygame official website, https://www.pygame.org/, and I take no credit
-# or responsibility for the creation of the pygame library.
-
 class Game:
     def __init__(self):
         pg.init()
@@ -18,13 +13,13 @@ class Game:
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         pg.key.set_repeat(500, 100)
-        self.load_data()
+        self.load()
 
         self.player = ""
 
 
     # loads map2.txt level data using os path
-    def load_data(self):
+    def load(self):
         # game_folder is the root location for the game directory
         game_folder = path.dirname(__file__)
         img_folder = path.join(game_folder, 'source')
@@ -163,11 +158,6 @@ class Game:
 
         self.displayGui()
 
-        self.displayCustomText()
-
-        # darkness effect - TODO: opacity
-        #pg.draw.rect(self.screen, (0.1, 0.1, 0.1), (0, 0, 1024, 768))
-
         # update the entire screen
         pg.display.flip()
 
@@ -205,9 +195,9 @@ class Game:
                     self.quit()
 
 # create the game object
-g = Game()
+game = Game()
 
 # Commands called on start
 while True:
-    g.new()
-    g.run()
+    game.new()
+    game.run()
